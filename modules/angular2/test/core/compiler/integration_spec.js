@@ -4,7 +4,7 @@ import {DOM} from 'angular2/src/dom/dom_adapter';
 import {Type, isPresent, BaseException, assertionsEnabled, isJsObject} from 'angular2/src/facade/lang';
 import {PromiseWrapper} from 'angular2/src/facade/async';
 
-import {Injector} from 'angular2/di';
+import {Injector, bind} from 'angular2/di';
 import {Lexer, Parser, dynamicChangeDetection,
   DynamicChangeDetection, Pipe, PipeRegistry} from 'angular2/change_detection';
 
@@ -577,7 +577,7 @@ class SomeDirective { }
 })
 @Template({
   inline: '<p>Component with an injected parent</p>',
-  directives: [SomeDirective]
+  directives: [bind(SomeDirective).toClass(SomeDirective)]
 })
 class CompWithParent {
   myParent: SomeDirective;

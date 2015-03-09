@@ -3,6 +3,7 @@ import {Promise, PromiseWrapper} from 'angular2/src/facade/async';
 import {List, ListWrapper, Map, MapWrapper} from 'angular2/src/facade/collection';
 
 import {ChangeDetection, Parser} from 'angular2/change_detection';
+import {Binding} from 'angular2/di';
 
 import {DirectiveMetadataReader} from './directive_metadata_reader';
 import {ProtoView} from './view';
@@ -222,6 +223,8 @@ export class Compiler {
       var item = tree[i];
       if (ListWrapper.isList(item)) {
         this._flattenList(item, out);
+      } else if (item instanceof Binding) {
+        ListWrapper.push(out, Object.getPrototypeOf(item.factory()).constructor);
       } else {
         ListWrapper.push(out, item);
       }
